@@ -30,8 +30,21 @@
 <script lang="ts">
 import start_work from '../assets/start_work.mp3';
 import start_pause from '../assets/start_pause.mp3';
+
+type TimerTypes = {
+    Pomodoro: number;
+    "Short break": number;
+    "Long break": number;
+}
+
 export default {
-    data() {
+    data(): {
+        selectedType: string,
+        types: TimerTypes,
+        minutes: number,
+        seconds: number,
+        interval: null | number
+    } {
         return {
             selectedType: 'Pomodoro',
             types: { Pomodoro: 25, "Short break": 5, "Long break": 15 },
@@ -63,6 +76,7 @@ export default {
                 window.clearInterval(this.interval);
             this.interval = null;
             this.seconds = 0;
+            // @ts-ignore
             this.minutes = this.types[this.selectedType]
         },
 
