@@ -3,7 +3,7 @@
         <div class="navbar">
             <div style="font-weight: bold; color: white">ADPomodoro</div>
             <div>
-                <button class="nav-button" @click="onAuthorClick">Author</button>
+                <button class="nav-button" @click="onAboutClick">About</button>
             </div>
         </div>
         <br />
@@ -43,7 +43,8 @@ export default {
         types: TimerTypes,
         minutes: number,
         seconds: number,
-        interval: null | number
+        interval: null | number,
+        counter: number
     } {
         return {
             selectedType: 'Pomodoro',
@@ -51,6 +52,7 @@ export default {
             minutes: 0,
             seconds: 0,
             interval: null,
+            counter: 0
         }
     },
 
@@ -86,19 +88,24 @@ export default {
                 return
             }
             if (this.selectedType === 'Pomodoro') {
+                ++this.counter;
                 this.playSound(start_work);
             } else {
                 this.playSound(start_pause);
             }
             this.interval = window.setInterval(() => {
                 this.countDown();
-            }, 1000)
+            }, 10)
         },
 
         countDown() {
             if (this.minutes === 0 && this.seconds === 0) {
                 if (this.selectedType === 'Pomodoro') {
-                    this.selectedType = "Long break";
+                    if (this.counter % 4 === 0) {
+                        this.selectedType = "Long break";
+                    } else {
+                        this.selectedType = "Short break";
+                    }
                 } else {
                     this.selectedType = "Pomodoro";
                 }
@@ -118,8 +125,8 @@ export default {
             audio.play();
         },
 
-        onAuthorClick() {
-            alert('Author: Adrian Petran');
+        onAboutClick() {
+            window.alert('Author: Adrian Petran\nHint: Breaks start automatically after the working time expires. After four short breaks, a long break will start.');
         }
 
 
@@ -162,7 +169,7 @@ button {
     font-size: 18px;
 }
 
-.type-buttons{
+.type-buttons {
     flex-wrap: nowrap;
     display: flex;
 }
