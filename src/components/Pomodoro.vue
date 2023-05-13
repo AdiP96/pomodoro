@@ -10,10 +10,10 @@
         <br />
         <div class="timer-container">
             <div class="timer-box">
-                <div>
+                <div class="type-buttons">
                     <template v-for="(type, index) in Object.keys(types)" :key="index">
                         <button @click="() => changeType(type)"
-                            :class="selectedType === type ? 'selected-type-button' : 'timer-type-button'">{{
+                            :class="selectedType === type ? 'type-button' : 'timer-type-button'">{{
                                 type }}</button>
                     </template>
                 </div>
@@ -162,7 +162,12 @@ button {
     font-size: 18px;
 }
 
-.selected-type-button {
+.type-buttons{
+    flex-wrap: nowrap;
+    display: flex;
+}
+
+.type-button {
     background-color: rgba(255, 255, 255, 0.3);
     color: white;
     font-size: 18px;
@@ -182,12 +187,13 @@ button {
     width: 500px;
     padding: 24px;
     border-radius: 10px;
+    margin: 24px;
 }
 
 .timer {
     color: white;
     font-weight: bold;
-    font-size: 112px;
+    font-size: 84px;
 }
 
 .timer-break {
@@ -199,9 +205,9 @@ button {
     background-color: white;
     font-weight: bold;
     font-size: 32px;
-    padding: 12px;
-    padding-left: 64px;
-    padding-right: 64px;
+    padding: 10px;
+    padding-left: 60px;
+    padding-right: 60px;
     min-width: 100px;
     border-radius: 10px;
 }
