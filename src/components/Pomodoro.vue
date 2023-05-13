@@ -95,7 +95,7 @@ export default {
             }
             this.interval = window.setInterval(() => {
                 this.countDown();
-            }, 10)
+            }, 1000)
         },
 
         countDown() {
